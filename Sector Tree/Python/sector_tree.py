@@ -1,7 +1,7 @@
-from quad_components import *
-from domain          import Domain
+from sector_components import *
+from domain            import Domain
 
-class Quad_Tree(object):
+class Sector_Tree(object):
 	DEFAULT_BUCKET_SIZE = 1
 
 	# CONSTRUCTOR
@@ -13,8 +13,7 @@ class Quad_Tree(object):
 	def __init__( self                                    , 
 		          bounds = [(-1024, -1024), (1024, 1024)] ,
 		          bucket_size  = 1                        ,
-		          store_domain = True                     ,
-		          collapse     = True                     ):
+		          store_domain = True                     ):
 		self.bounds = Domain(bounds[0], bounds[1])
 
 		self.BUCKET_SIZE = self.DEFAULT_BUCKET_SIZE
@@ -33,9 +32,9 @@ class Quad_Tree(object):
 		return s
 
 	def insert(self, x = 0, y = 0, data = None):
-		obj = Quad_Object(x, y, data)
+		obj = Sector_Object(x, y, data)
 
 		if (self.root == None):
-			self.root = Quad_Leaf()
+			self.root = Sector_Leaf()
 
 		self.root = self.root.insert(obj, self.bounds, self.BUCKET_SIZE)

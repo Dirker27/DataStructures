@@ -1,7 +1,7 @@
 from comparable_2D import Comparable_2D
 from domain        import Domain
 
-class Quad_Object(Comparable_2D):
+class Sector_Object(Comparable_2D):
 
 	def __init__(self, x, y, data):
 		Comparable_2D.__init__(self, x, y)
@@ -15,7 +15,7 @@ class Quad_Object(Comparable_2D):
 		return Compare_2D.__eq__(self, other) and self.data.__eq__(other.data)
 
 
-class Quad_Leaf(object):
+class Sector_Leaf(object):
 
 	def __init__(self):
 		self.bucket = []
@@ -24,7 +24,7 @@ class Quad_Leaf(object):
 		#self.insert( obj, Domain((0,0),(0,0)), self.BUCKET_SIZE )
 
 	def __str__(self):
-		s = "LEAF:{ "
+		s = "SECTOR:{ "
 		for obj in self.bucket:
 			s += str(obj)
 
@@ -38,7 +38,7 @@ class Quad_Leaf(object):
 		self.usage += 1
 		
 		if (self.usage > bucket_size):
-			branch = Quad_Branch()
+			branch = Sector_Branch()
 
 			for i in range(0, self.usage):
 				branch = branch.insert( self.bucket[i] ,
@@ -48,11 +48,8 @@ class Quad_Leaf(object):
 
 		return self
 
-	def remove(self, obj, )
 
-
-
-class Quad_Branch(object):
+class Sector_Branch(object):
 
 	def __init__(self):
 		self.dir_child = { Comparable_2D.NORTHEAST : None ,
@@ -71,7 +68,7 @@ class Quad_Branch(object):
 		return s
 
 	def print_tree(self, padding):
-		padding += "\t"
+		padding += "\t|"
 
 		s = "BRANCH:\n"
 		s += padding + "--------------------------------------\ \n"
@@ -105,7 +102,7 @@ class Quad_Branch(object):
 		q = bearings.get_quadrant(d)
 
 		if (self.dir_child[d] == None):
-			self.dir_child[d] = Quad_Leaf()
+			self.dir_child[d] = Sector_Leaf()
 
 		self.dir_child[d] = self.dir_child[d].insert(obj, q)
 
